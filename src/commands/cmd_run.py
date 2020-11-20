@@ -1,6 +1,7 @@
 """Standard library"""
 import os
 import csv
+import datetime
 from datetime import date
 
 """Third party modules"""
@@ -60,7 +61,7 @@ def cli(ctx, path):
         for row in reader:
             if row.get("Enterprise ID") in personnel_list:
                 sheet.write(i, 0, row.get("Enterprise ID"))
-                sheet.write(i, 1, row.get("Fiscal Year"))
+                sheet.write(i, 1, datetime.datetime.now().year)
                 sheet.write(i, 2, row.get("Hours Date"))
                 sheet.write(i, 3, row.get("Pay Period Ending"))
                 sheet.write(i, 4, row.get("Account Name"))
@@ -73,5 +74,5 @@ def cli(ctx, path):
     today = date.today()
 
     # After all data has been written to excel sheet save the workbook
-    excelName = "Report " + str(today) + ".xls"
+    excelName = "MonthlyUtilDataDump" + str(today) + ".xls"
     wb.save("reports/" + excelName)
